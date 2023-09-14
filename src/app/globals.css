@@ -27,3 +27,18 @@ body {
     rgb(var(--background-start-rgb));
     font-family: sans-serif;
 }
+
+/* Added custom tailwind utility class for filter buttons
+* in the search route page
+*/
+
+@layer components {
+    .filter-button {
+        @apply  
+            px-4 py-2 bg-slate-50 border 
+            rounded-full shadow-md hover:bg-slate-100
+            hover:shadow-xl cursor-pointer select-none 
+            active:scale-95 active:shadow-none transition 
+            transform duration-200 ease-out;
+    }
+}

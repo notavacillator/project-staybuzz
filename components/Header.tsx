@@ -12,6 +12,8 @@ import {
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import {DateRangePicker} from 'react-date-range'; 
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 function Header() {
   const [searchInput, setSearchInput] = useState("");
@@ -21,6 +23,9 @@ function Header() {
   
   const [noOfGuests, setNoOfGuests] = useState(1)
 
+  
+  // handle onchange value of the guest input field   
+  // only sets the number of guests if num provided. 
   const handleInputChange = (e : any) => {
     const inputValue = parseInt(e.target.value, 10); // Convert the input value to an integer
     if (!isNaN(inputValue)) {
@@ -28,38 +33,48 @@ function Header() {
     }
   };
 
+  // Selection Range for date range default. 
+  // with a key named 'selection' 
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
     key: 'selection',
   }
 
+  // handle select on click of the dates in 
+  // react date range component 
   const handleSelect = (ranges : any) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
   }
 
+  // on click of the 'cancel' button 
+  // resets the input value to be an empty string 
   const resetInput = () => {
     setSearchInput("");
   }
+
+  const router = useRouter(); 
+
+  const search = () => {
+    router.push("/search");
+  }
+
+
   
   return (
     <header className='grid items-center sticky top-0 z-20 max-h-14 grid-cols-3  bg-white shadow-md py-2 md:px-3 backdrop-blur-md bg-opacity-50'>
         {/* First section - Logo  */}
         <div className='relative flex items-center h-8 cursor-pointer my-auto'>
             {/* Logo Symbol   */}
-            <Image
-                src="https://firebasestorage.googleapis.com/v0/b/staybuzz-ef4d9.appspot.com/o/logo_airb_styled-removebg.png?alt=media&token=c0fd54af-2677-4c50-aa54-3448900e6914"
-                alt ="logo" 
-                width={60} height={60} className='object-contain' 
-            />
-            {/* Named logo  */}
-            {/* <Image
-                className='hidden xl:inline-flex object-left'
-                src="https://firebasestorage.googleapis.com/v0/b/staybuzz-ef4d9.appspot.com/o/logo_name_bgremoved.png?alt=media&token=f1e8ab9f-55bb-469b-bbb7-726c02d4808d"
-                alt ="logo-name"
-                width={200} height={100}  
-            /> */}
+            {/*  Added link to homepage as the logo is clicked. Used next/link */}
+            <Link href="/" scroll={false}>
+              <Image
+                  src="https://firebasestorage.googleapis.com/v0/b/staybuzz-ef4d9.appspot.com/o/logo_airb_styled-removebg.png?alt=media&token=c0fd54af-2677-4c50-aa54-3448900e6914"
+                  alt ="logo" 
+                  width={60} height={60} className='object-contain' 
+              />
+            </Link>
         </div>
 
         {/* Second section - input search field.  */}
@@ -80,6 +95,10 @@ function Header() {
         </div>
 
         {/* DateRangePicker added - author : YSB  */}
+        {/* react date range with its type definitions added   */}
+        {/* conditionally rendering the range picker when there is 
+          some value in the e.target.value of the search input */}
+        
         {searchInput && (
           <div className='bg-white border-collapse rounded-3xl flex flex-col col-span-3 mx-auto mt-2' >
             <DateRangePicker
@@ -100,7 +119,7 @@ function Header() {
             </div>
             <div className='flex my-2'>
               <button onClick = {resetInput} className='flex-grow text-gray-500 border-r-2 '> Cancel </button>
-              <button className='flex-grow text-red-500 font-semibold border-l'> Search</button>
+              <button onClick={search} className='flex-grow text-red-500 font-semibold border-l'> Search</button>
             </div>
           </div>
         )}
