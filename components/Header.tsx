@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import Image from 'next/image'
 import {  
   MagnifyingGlassIcon,
@@ -8,7 +9,22 @@ import {
   UsersIcon
 } from '@heroicons/react/24/solid';
 
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import {DateRangePicker} from 'react-date-range'; 
+
 function Header() {
+  const [searchInput, setSearchInput] = useState("");
+  
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date()); 
+  
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: 'selection',
+  }
+  
   return (
     <header className='grid items-center sticky top-0 z-20 max-h-14 grid-cols-3  bg-white shadow-md py-2 md:px-3 backdrop-blur-md bg-opacity-50'>
         {/* First section - Logo  */}
@@ -30,7 +46,7 @@ function Header() {
 
         {/* Second section - input search field.  */}
         <div className='flex items-center  rounded-full h-10  sm:border-2 border-b-3 sm:shadow-md shadow-sm bg-white overflow-hidden'>
-            <input className = "mx-3 px-4 bg-transparent outline-none flex-grow text-gray-500 placeholder-gray-400" type="text" name="main-search" id="main-search" placeholder='  Search '/>
+            <input onChange={(e) => (setSearchInput(e.target.value))} value={searchInput} className = "mx-3 px-4 bg-transparent outline-none flex-grow text-gray-500 placeholder-gray-400" type="text" name="main-search" id="main-search" placeholder='  Search '/>
             <MagnifyingGlassIcon className="hidden md:inline-flex w-6 h-6 bg-red-400 text-white rounded-full p-1 cursor-pointer mx-2"/>
         </div>
 
@@ -44,6 +60,15 @@ function Header() {
             <UserCircleIcon className='h-6'/>
           </div>
         </div>
+
+        {/* DateRangePicker added - author : YSB  */}
+        {searchInput && (
+          <div>
+            <DateRangePicker
+              ranges = {[selectionRange]}
+            />
+          </div>
+        )}
     </header>
   )
 }
