@@ -19,10 +19,28 @@ function Header() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date()); 
   
+  const [noOfGuests, setNoOfGuests] = useState(1)
+
+  const handleInputChange = (e : any) => {
+    const inputValue = parseInt(e.target.value, 10); // Convert the input value to an integer
+    if (!isNaN(inputValue)) {
+      setNoOfGuests(inputValue); // Set the state with the parsed integer value
+    }
+  };
+
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
     key: 'selection',
+  }
+
+  const handleSelect = (ranges : any) => {
+    setStartDate(ranges.selection.startDate);
+    setEndDate(ranges.selection.endDate);
+  }
+
+  const resetInput = () => {
+    setSearchInput("");
   }
   
   return (
@@ -63,10 +81,27 @@ function Header() {
 
         {/* DateRangePicker added - author : YSB  */}
         {searchInput && (
-          <div>
+          <div className='bg-white border-collapse rounded-3xl flex flex-col col-span-3 mx-auto mt-2' >
             <DateRangePicker
               ranges = {[selectionRange]}
+              minDate={new Date()}
+              rangeColors={["#DF5B66"]}
+              onChange={handleSelect}
             />
+            <div className='bg-white  flex items-center border-b pb-4  justify-around mx-14'>
+              <h2 className='text-2xl pl-2 flex-grow font-semibold'>Number of Guests : </h2>
+              <UsersIcon className='h-5'/>
+              <input 
+                className = "w-12 pl-2 outline-none text-lg text-pink-700"  
+                type="number" min={1} 
+                value={noOfGuests} 
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='flex my-2'>
+              <button onClick = {resetInput} className='flex-grow text-gray-500 border-r-2 '> Cancel </button>
+              <button className='flex-grow text-red-500 font-semibold border-l'> Search</button>
+            </div>
           </div>
         )}
     </header>
