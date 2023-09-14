@@ -9,7 +9,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        '3': '1fr auto 1fr', // 1fr for the first and third columns, and auto for the middle column
+      },
+    },
   },
   plugins: [
     require('tailwind-scrollbar-hide')

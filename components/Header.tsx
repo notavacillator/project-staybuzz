@@ -10,7 +10,7 @@ import {
 
 function Header() {
   return (
-    <header className='grid items-center sticky top-0 z-20 max-h-14 grid-cols-3 bg-white shadow-md py-1 md:px-3 backdrop-blur-md bg-opacity-70'>
+    <header className='grid items-center sticky top-0 z-20 max-h-14 grid-cols-3  bg-white shadow-md py-2 md:px-3 backdrop-blur-md bg-opacity-50'>
         {/* First section - Logo  */}
         <div className='relative flex items-center h-8 cursor-pointer my-auto'>
             {/* Logo Symbol   */}
@@ -29,9 +29,9 @@ function Header() {
         </div>
 
         {/* Second section - input search field.  */}
-        <div className='flex items-center  rounded-full h-10  sm:border-2 border-b-2 sm:shadow-md bg-white overflow-hidden '>
-            <input className = "px-3 bg-transparent outline-none flex-grow text-gray-500 placeholder-gray-400" type="text" name="main-search" id="main-search" placeholder='  Search '/>
-            <MagnifyingGlassIcon className="hidden lg:inline-flex w-6 h-6 bg-red-400 text-white rounded-full p-1 cursor-pointer mx-2"/>
+        <div className='flex items-center  rounded-full h-10  sm:border-2 border-b-3 sm:shadow-md shadow-sm bg-white overflow-hidden'>
+            <input className = "mx-3 px-4 bg-transparent outline-none flex-grow text-gray-500 placeholder-gray-400" type="text" name="main-search" id="main-search" placeholder='  Search '/>
+            <MagnifyingGlassIcon className="hidden md:inline-flex w-6 h-6 bg-red-400 text-white rounded-full p-1 cursor-pointer mx-2"/>
         </div>
 
         {/* Third section  */}
