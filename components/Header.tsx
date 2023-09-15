@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useState } from 'react'
 import Image from 'next/image'
 import {  
@@ -13,7 +14,7 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import {DateRangePicker} from 'react-date-range'; 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 function Header() {
   const [searchInput, setSearchInput] = useState("");
@@ -54,10 +55,28 @@ function Header() {
     setSearchInput("");
   }
 
+  // Using modern way app directoy based routing 
+  // with pathname and searchParams 
+  const searchParams = useSearchParams()
   const router = useRouter(); 
-
+  
   const search = () => {
-    router.push("/search");
+    const pathname = '/search'; 
+    // const newUrlParams = new URLSearchParams(searchParams.toString());
+
+    let location = encodeURIComponent(searchInput); 
+    let startDateQuery = encodeURIComponent(startDate.toISOString());
+    let endDateQuery = encodeURIComponent(endDate.toISOString()); 
+    let noOfGuestsQuery = encodeURIComponent(noOfGuests); 
+
+    console.log(`location: ${location}, start date: ${startDateQuery}, end date: ${endDateQuery}, no of guests : ${noOfGuests}`);
+    
+    const queryParams = `location=${location}&startDate=${startDateQuery}&endDate=${endDateQuery}&noOfGuests=${noOfGuestsQuery}`;
+
+    console.log("url params : " + queryParams);
+    console.log("pathname : " + pathname);
+
+    router.push(`${pathname}?${queryParams}`);
   }
 
 
@@ -72,7 +91,7 @@ function Header() {
               <Image
                   src="https://firebasestorage.googleapis.com/v0/b/staybuzz-ef4d9.appspot.com/o/logo_airb_styled-removebg.png?alt=media&token=c0fd54af-2677-4c50-aa54-3448900e6914"
                   alt ="logo" 
-                  width={60} height={60} className='object-contain' 
+                  width={60} height={60} className='object-contain min-h-16' 
               />
             </Link>
         </div>
