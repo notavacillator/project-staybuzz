@@ -16,13 +16,19 @@ import {DateRangePicker} from 'react-date-range';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-function Header() {
+
+interface Iplaceholder {
+  placeholder: string,
+}
+
+
+function Header({placeholder} : Iplaceholder) {
   const [searchInput, setSearchInput] = useState("");
   
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date()); 
   
-  const [noOfGuests, setNoOfGuests] = useState(1)
+  const [noOfGuests, setNoOfGuests] = useState(0)
 
   
   // handle onchange value of the guest input field   
@@ -98,7 +104,9 @@ function Header() {
 
         {/* Second section - input search field.  */}
         <div className='flex items-center  rounded-full h-10  sm:border-2 border-b-3 sm:shadow-md shadow-sm bg-white overflow-hidden'>
-            <input onChange={(e) => (setSearchInput(e.target.value))} value={searchInput} className = "mx-3 px-4 bg-transparent outline-none flex-grow text-gray-500 placeholder-gray-400" type="text" name="main-search" id="main-search" placeholder='  Search '/>
+            <input onChange={(e) => (setSearchInput(e.target.value))} value={searchInput} 
+              className = "mx-3 px-4 bg-transparent outline-none flex-grow text-gray-500 placeholder-gray-400" 
+              type="text" name="main-search" id="main-search" placeholder = {placeholder || '  Search '}/>
             <MagnifyingGlassIcon className="hidden md:inline-flex w-6 h-6 bg-red-400 text-white rounded-full p-1 cursor-pointer mx-2"/>
         </div>
 

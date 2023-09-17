@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        '3': '1fr auto 1fr', // 1fr for the first and third columns, and auto for the middle column
+        '3': '1fr 2fr 1fr', 
       },
     },
   },
