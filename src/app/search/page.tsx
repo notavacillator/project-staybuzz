@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import { format } from 'date-fns';
+import Infocard from '../../../components/Infocard';
 
 interface SearchParamsInterface {
   searchParams: {
@@ -15,6 +16,20 @@ interface SearchParamsInterface {
 interface Iplaceholder {
   placeholder: string,
 }
+
+interface RoomData {
+  key: string; 
+  img: string;
+  location: string;
+  title: string;
+  description: string;
+  star: number;
+  price: string;
+  total: string;
+  long: number;
+  lat: number;
+}
+
 
 
 async function Page({searchParams} : SearchParamsInterface) {
@@ -67,6 +82,27 @@ async function Page({searchParams} : SearchParamsInterface) {
                             More Filters
                     </p>
                 </div>
+
+                {/* Infocard section  */}
+                <div className='flex flex-col'>
+                  {searchResults?.map(
+                    ({ img, location, title, description, star, price, total, long, lat }: RoomData) => (
+                      <Infocard
+                        key={img}
+                        img={img}
+                        location={location}
+                        title={title} 
+                        description={description}
+                        star={star}
+                        price={price}
+                        total={total}
+                        long={long}
+                        lat={lat}
+                      />
+                    ))
+                  }
+                </div>
+
             </section>
 
             {/* Map Section styles   */}
@@ -81,9 +117,15 @@ async function Page({searchParams} : SearchParamsInterface) {
 export default Page
 
 async function getSearchInfoCards() {
-  const response = await fetch('https://jsonkeeper.com/b/5NPS');
-  const searchInfoCard = await response.json();
-  
-  console.log('Fetched data:', searchInfoCard); 
-  return searchInfoCard 
-};
+  const res = await fetch('https://www.jsonkeeper.com/b/5NPS')
+  let searchInfoCard;
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  } else{
+    searchInfoCard = await res.json(); 
+    // console.log("search info cards : " + searchInfoCard);
+    
+  }
+ 
+  return searchInfoCard
+}
