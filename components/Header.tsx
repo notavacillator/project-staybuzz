@@ -106,7 +106,7 @@ function Header({placeholder} : Iplaceholder) {
         <div className='flex items-center  rounded-full h-10  sm:border-2 border-b-3 sm:shadow-md shadow-sm bg-white overflow-hidden'>
             <input onChange={(e) => (setSearchInput(e.target.value))} value={searchInput} 
               className = "mx-3 px-4 bg-transparent outline-none flex-grow text-gray-500 placeholder-gray-400" 
-              type="text" name="main-search" id="main-search" placeholder = {placeholder || '  Search '}/>
+              type="text" name="main-search" id="main-search" autoComplete="off" placeholder = {placeholder || '  Search '}/>
             <MagnifyingGlassIcon className="hidden md:inline-flex w-6 h-6 bg-red-400 text-white rounded-full p-1 cursor-pointer mx-2"/>
         </div>
 

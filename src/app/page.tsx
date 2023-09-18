@@ -44,7 +44,7 @@ export default async function Home() {
         <section className='pt-6'>
           <h2 className='text-3xl font-semibold pb-5'>Explore Nearby</h2>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'>
             {exploreData?.map(({img, distance, location}: LocationData) => 
               <SmallCard key={img} img={img} location={location} distance={distance}/>
             )}
