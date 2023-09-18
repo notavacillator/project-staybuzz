@@ -28,7 +28,7 @@ function Header({placeholder} : Iplaceholder) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date()); 
   
-  const [noOfGuests, setNoOfGuests] = useState(0)
+  const [noOfGuests, setNoOfGuests] = useState(1)
 
   
   // handle onchange value of the guest input field   
